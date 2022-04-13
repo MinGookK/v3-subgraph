@@ -242,8 +242,8 @@ export function handleBurn(event: BurnEvent): void {
   // tick entities
   let lowerTickId = poolAddress + '#' + BigInt.fromI32(event.params.tickLower).toString()
   let upperTickId = poolAddress + '#' + BigInt.fromI32(event.params.tickUpper).toString()
-  let lowerTick = Tick.load(lowerTickId)
-  let upperTick = Tick.load(upperTickId)
+  let lowerTick = Tick.load(lowerTickId)!
+  let upperTick = Tick.load(upperTickId)!
   let amount = event.params.amount
   lowerTick.liquidityGross = lowerTick.liquidityGross.minus(amount)
   lowerTick.liquidityNet = lowerTick.liquidityNet.minus(amount)
@@ -269,7 +269,7 @@ export function handleBurn(event: BurnEvent): void {
 
 export function handleSwap(event: SwapEvent): void {
   let bundle = Bundle.load('1')!
-  let factory = Factory.load(FACTORY_ADDRESS)
+  let factory = Factory.load(FACTORY_ADDRESS)!
   let pool = Pool.load(event.address.toHexString())!
 
   // hot fix for bad pricing
